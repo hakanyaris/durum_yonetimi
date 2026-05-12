@@ -15,7 +15,7 @@ class AnaUygyulama extends StatelessWidget {
     return MaterialApp(
       home: ChangeNotifierProvider(
         create: (BuildContext context) {
-          BirinciViewModel();
+          return BirinciViewModel();
         },
         child: BirinciSayfa(),
       ),

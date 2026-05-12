@@ -1,4 +1,6 @@
+import 'package:durum_yonetimi/view_model/birinci_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BirinciSayfa extends StatefulWidget {
   @override
@@ -9,48 +11,68 @@ class _BirinciSayfaState extends State<BirinciSayfa> {
   @override
   Widget build(BuildContext context) {
     print("Sayfa Baştan Oluşturuldu");
+
     return Scaffold(
       appBar: AppBar(title: Text("Birinci Sayfa")),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           FlutterLogo(size: 96),
-          _buildBaslik(),
-          _buildYaziyiDegistir(),
-          _buildChechBox(),
+          _buildBaslik(context),
+          _buildYaziyiDegistir(context),
+          _buildChechBox(context),
         ],
       ),
     );
   }
 
-  Widget _buildBaslik() {
+  Widget _buildBaslik(BuildContext context) {
     print("Başlık oluşturuldu");
-    return Text(_yazi, style: TextStyle(fontSize: 28));
+
+    return Consumer<BirinciViewModel>(
+      builder: (context, viewModel, child) {
+        print("Başlık -consumer oluşturuldu");
+        return Text(viewModel.yazi, style: TextStyle(fontSize: 28));
+      },
+    );
   }
 
-  Widget _buildYaziyiDegistir() {
+  Widget _buildYaziyiDegistir(BuildContext context) {
     print("Yazıyı değiştir oluşturuldu");
+    BirinciViewModel viewModel = Provider.of<BirinciViewModel>(
+      context,
+      listen: false,
+    );
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          _yazi = "Butona Tıklandı";
+          viewModel.yazi = "Butona Tıklandı";
         },
         child: Text("Yazıyı Değiştir"),
       ),
     );
   }
 
-  Widget _buildChechBox() {
+  Widget _buildChechBox(BuildContext context) {
     print("CheckBox Oluşturuldu");
+    //  BirinciViewModel viewModel = Provider.of<BirinciViewModel>(
+    //     context,
+    //     listen: false,
+    //   );
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text('CheckBox', style: TextStyle(fontSize: 18)),
-        Checkbox(
-          value: _checkboxSecilimi,
-          onChanged: (bool? yeniDeger) {
-            if (yeniDeger != null) _checkboxSecilimi = yeniDeger;
+        Consumer<BirinciViewModel>(
+          builder: (context, viewModel, child) {
+            print("CheckBox - consumer Oluşturuldu");
+            return Checkbox(
+              value: viewModel.checkboxSecilimi,
+              onChanged: (bool? yeniDeger) {
+                if (yeniDeger != null) viewModel.checkboxSecilimi = yeniDeger;
+              },
+            );
           },
         ),
       ],

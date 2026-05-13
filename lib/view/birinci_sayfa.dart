@@ -12,14 +12,24 @@ class _BirinciSayfaState extends State<BirinciSayfa> {
   Widget build(BuildContext context) {
     print("Sayfa Baştan Oluşturuldu");
 
-    return Scaffold(
-      appBar: AppBar(title: Text("Birinci Sayfa")),
-      body: Column(
+    return Consumer<BirinciViewModel>(
+      builder: (context, viewModel, child) {
+        print("Scaffold -consumer oluşturuldu.");
+
+        return Scaffold(
+          backgroundColor: viewModel.renk,
+          appBar: AppBar(title: Text("Birinci Sayfa")),
+          body:
+              child, //Consumer child parametresine atadığımız Column widgetini göster fakat providerde notifyListeners çağrıldığında bu kısmı (Column)güncelleme  demek istiyoruz.
+        );
+      },
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           FlutterLogo(size: 96),
           _buildBaslik(context),
-          _buildYaziyiDegistir(context),
+          _buildYaziyiDegistirButton(context),
+          _buildRenkDegistirButton(context),
           _buildChechBox(context),
         ],
       ),
@@ -37,8 +47,8 @@ class _BirinciSayfaState extends State<BirinciSayfa> {
     );
   }
 
-  Widget _buildYaziyiDegistir(BuildContext context) {
-    print("Yazıyı değiştir oluşturuldu");
+  Widget _buildYaziyiDegistirButton(BuildContext context) {
+    print("Yazıyı değiştir butonu oluşturuldu");
     BirinciViewModel viewModel = Provider.of<BirinciViewModel>(
       context,
       listen: false,
@@ -50,6 +60,23 @@ class _BirinciSayfaState extends State<BirinciSayfa> {
           viewModel.yazi = "Butona Tıklandı";
         },
         child: Text("Yazıyı Değiştir"),
+      ),
+    );
+  }
+
+  Widget _buildRenkDegistirButton(BuildContext context) {
+    print("Renk değiştir butonu oluşturuldu");
+    BirinciViewModel viewModel = Provider.of<BirinciViewModel>(
+      context,
+      listen: false,
+    );
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () {
+          viewModel.renk = Colors.green;
+        },
+        child: Text("Renk Değiştir"),
       ),
     );
   }

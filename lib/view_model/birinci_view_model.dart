@@ -15,4 +15,12 @@ class BirinciViewModel with ChangeNotifier {
     _checkboxSecilimi = value;
     notifyListeners();
   }
+
+  Color _renk = Colors.white;
+  Color get renk => _renk;
+
+  set renk(Color value) {
+    _renk = value;
+    notifyListeners();
+  }
 }

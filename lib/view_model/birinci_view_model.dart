@@ -1,4 +1,7 @@
+import 'package:durum_yonetimi/view/ikinci_sayfa.dart';
+import 'package:durum_yonetimi/view_model/ikinci_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BirinciViewModel with ChangeNotifier {
   String _yazi = "Merhaba";
@@ -22,5 +25,19 @@ class BirinciViewModel with ChangeNotifier {
   set renk(Color value) {
     _renk = value;
     notifyListeners();
+  }
+
+  void ikinciSayfaAc(BuildContext context) {
+    MaterialPageRoute git = MaterialPageRoute(
+      builder: (context) {
+        return ChangeNotifierProvider(
+          create: (context) {
+            return IkinciViewModel();
+          },
+          child:IkinciSayfa()
+        );
+      },
+    );
+    Navigator.push(context, git);
   }
 }

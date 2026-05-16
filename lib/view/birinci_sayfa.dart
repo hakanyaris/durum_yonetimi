@@ -1,3 +1,4 @@
+import 'package:durum_yonetimi/view/yonlendirme_butonu.dart';
 import 'package:durum_yonetimi/view_model/birinci_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +30,7 @@ class _BirinciSayfaState extends State<BirinciSayfa> {
           FlutterLogo(size: 96),
           _buildBaslik(context),
           _buildYaziyiDegistirButton(context),
+          YonlendirmeButonu(),
           _buildRenkDegistirButton(context),
           _buildChechBox(context),
         ],

@@ -12,7 +12,8 @@ class _BirinciSayfaState extends State<BirinciSayfa> {
   @override
   Widget build(BuildContext context) {
     print("Sayfa Baştan Oluşturuldu");
-
+ //Consumer kullanıyorsan sadece odadaki tablo (içindeki widget)(builder içindeki widget) boyanır.
+ // context.watch kullanıyorsan tüm oda (build metodu) boyanır,
     return Consumer<BirinciViewModel>(
       builder: (context, viewModel, child) {
         print("Scaffold -consumer oluşturuldu.");
@@ -68,6 +69,14 @@ class _BirinciSayfaState extends State<BirinciSayfa> {
 
   Widget _buildRenkDegistirButton(BuildContext context) {
     print("Renk değiştir butonu oluşturuldu");
+    //  Provider.of<T>(context) Provider kütüphanesinde bir modeldeki veriye erişmek için kullanılan en
+    // temel ve klasik yöntemdir.
+    // Aslında context.watch ve context.read metotları, arka planda bu yapıyı kullanır
+    //.Modern Alternatifi: context.watch<SayacModel>().
+    //---------------------------------------------------------------------
+    //Provider.of<SayacModel>(context, listen: false) yazarsan:
+    // Veriye veya modelin içindeki fonksiyonlara erişir ama değişimleri dinlemez. 
+    //Veri değişse bile bu widget tekrar çizilmez. Modern Alternatifi: context.read<SayacModel>().
     BirinciViewModel viewModel = Provider.of<BirinciViewModel>(
       context,
       listen: false,

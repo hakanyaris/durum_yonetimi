@@ -20,26 +20,29 @@ class IkinciSayfa extends StatelessWidget {
         print("ListView-consumer oluşturuldu");
         return ListView.builder(
           itemCount: viewModel.siparisler.length,
-          itemBuilder: (context, index) {return 
-            _buildListItem(context, index);
+          itemBuilder: (context, index) {
+            return ChangeNotifierProvider.value(
+              value: viewModel.siparisler[index],
+              child: _buildListItem(),
+            );
           },
         );
       },
     );
   }
 
-  Widget _buildListItem(BuildContext context, int index) {
-    IkinciViewModel viewModel = Provider.of<IkinciViewModel>(
-      context,
-      listen: false,
-    );
-    Siparis siparis = viewModel.siparisler[index];
-    print("ListTile ${siparis.baslik} oluşuruldu");
-    return ListTile(
-      title: Text(siparis.baslik),
-      subtitle: Text(siparis.durum),
-      onTap: () {
-        viewModel.siparisOnayla(index);
+  Widget _buildListItem() {
+    return Consumer<Siparis>(
+      builder: (context, siparis, child) {
+        print("ListTile ${siparis.baslik} -consumer oluşuruldu");
+        return ListTile(
+          title: Text(siparis.baslik),
+          subtitle: Text(siparis.durum),
+          onTap: () {
+            siparis.siparisOnayla();
+          },
+        );
+        ;
       },
     );
   }

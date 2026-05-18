@@ -34,7 +34,7 @@ class BirinciViewModel with ChangeNotifier {
           create: (context) {
             return IkinciViewModel();
           },
-          child:IkinciSayfa()
+          child: IkinciSayfa(),
         );
       },
     );

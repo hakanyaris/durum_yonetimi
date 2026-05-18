@@ -12,8 +12,8 @@ class _BirinciSayfaState extends State<BirinciSayfa> {
   @override
   Widget build(BuildContext context) {
     print("Sayfa Baştan Oluşturuldu");
- //Consumer kullanıyorsan sadece odadaki tablo (içindeki widget)(builder içindeki widget) boyanır.
- // context.watch kullanıyorsan tüm oda (build metodu) boyanır,
+    //Consumer kullanıyorsan sadece odadaki tablo (içindeki widget)(builder içindeki widget) boyanır.
+    // context.watch kullanıyorsan tüm oda (build metodu) boyanır,
     return Consumer<BirinciViewModel>(
       builder: (context, viewModel, child) {
         print("Scaffold -consumer oluşturuldu.");
@@ -75,7 +75,7 @@ class _BirinciSayfaState extends State<BirinciSayfa> {
     //.Modern Alternatifi: context.watch<SayacModel>().
     //---------------------------------------------------------------------
     //Provider.of<SayacModel>(context, listen: false) yazarsan:
-    // Veriye veya modelin içindeki fonksiyonlara erişir ama değişimleri dinlemez. 
+    // Veriye veya modelin içindeki fonksiyonlara erişir ama değişimleri dinlemez.
     //Veri değişse bile bu widget tekrar çizilmez. Modern Alternatifi: context.read<SayacModel>().
     BirinciViewModel viewModel = Provider.of<BirinciViewModel>(
       context,
